@@ -1,6 +1,6 @@
-package ru.vsu.cs;
+package ru.vsu.cs.board;
 
-public class Main {
+public class Game {
 
     public static void main(String[] args) {
         System.out.println("hello");
