@@ -22,7 +22,7 @@ public class GameGraph {
         GameGraph gameGraph = new GameGraph();
         GameNode n1 = gameGraph.getOrCreateNode("1");
         GameNode n2 = gameGraph.getOrCreateNode("2");
-        n1.addEdge(n2, "сопли");
+        n1.addEdge(n2, "изолента");
         n1.addEdge(n2, "скотч");
     }
 }
