@@ -2,6 +2,7 @@ package ru.vsu.cs.game;
 
 import java.awt.*;
 
+@Deprecated
 public enum Turn {
     D1(0, Color.ORANGE),
     D2(1, Color.MAGENTA),

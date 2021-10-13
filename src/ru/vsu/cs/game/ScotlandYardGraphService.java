@@ -1,6 +1,7 @@
 package ru.vsu.cs.game;
 
 import ru.vsu.cs.graph.GameGraph;
+import ru.vsu.cs.graph.GameGraphService;
 import ru.vsu.cs.graph.GameNode;
 
 import java.io.File;
@@ -9,8 +10,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class ScotlandYardGraphService {
-    public static GameGraph readGameGraphFromFile(String filePath) {
+    public GameGraph readGameGraphFromFile(String filePath) {
         GameGraph gameGraph = new GameGraph();
+        GameGraphService gameGraphService = new GameGraphService();
         Scanner scanner;
         try {
             scanner = new Scanner(new File(filePath));
@@ -22,9 +24,9 @@ public class ScotlandYardGraphService {
         while (scanner.hasNextLine()) {
             String[] line = scanner.nextLine().split(" ");
             System.out.println(Arrays.toString(line));
-            GameNode gameNode1 = gameGraph.getOrCreateNode(line[0]);
-            GameNode gameNode2 = gameGraph.getOrCreateNode(line[1]);
-            gameNode1.addEdge(gameNode2, line[2]);
+            GameNode gameNode1 = gameGraphService.getOrCreateNode(gameGraph, line[0]);
+            GameNode gameNode2 = gameGraphService.getOrCreateNode(gameGraph, line[1]);
+            gameGraphService.addEdge(gameNode1, gameNode2, line[2]);
         }
         return gameGraph;
     }

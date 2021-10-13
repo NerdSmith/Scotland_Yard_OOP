@@ -1,68 +1,77 @@
 package ru.vsu.cs.game;
 
-import ru.vsu.cs.graph.GameGraph;
+import ru.vsu.cs.graph.GameGraphService;
 import ru.vsu.cs.graph.GameNode;
 import ru.vsu.cs.player.Detective;
-import ru.vsu.cs.player.MrX;
+import ru.vsu.cs.player.Person;
 import ru.vsu.cs.player.Ticket;
 
 import java.util.*;
 
-import static ru.vsu.cs.game.ScotlandYardGraphService.readGameGraphFromFile;
 
 public class GameService {
     private final String[] START_POINTS = { "13", "26", "29", "34", "50", "53", "91", "94", "103", "112", "117", "132",
             "138", "141", "155", "174", "197", "198" };
+    private final GameGraphService gameGraphService = new GameGraphService();
 
     public GameService() { }
 
-    public Game createGame() {
-        Game g = new Game(readGameGraphFromFile("resources/ScotlandYardMap.txt"));
-
-
-        MrX mrX = new MrX("X", getRandomStartPoint(g), mrxTickets());
-
-        ArrayList<Detective> detectives = new ArrayList<>();
-        detectives.add(new Detective("D1", getRandomStartPoint(g), detectiveTickets()));
-        detectives.add(new Detective("D2", getRandomStartPoint(g), detectiveTickets()));
-        detectives.add(new Detective("D3", getRandomStartPoint(g), detectiveTickets()));
-        detectives.add(new Detective("D4", getRandomStartPoint(g), detectiveTickets()));
-        detectives.add(new Detective("D5", getRandomStartPoint(g), detectiveTickets()));
-
-        g.setPlayers(mrX, detectives);
+    public Game createGame(Queue<Person> players) {
+        Game g = new Game(new ScotlandYardGraphService().readGameGraphFromFile("resources/ScotlandYardMap.txt"),
+                players);
+        setStartPoints(players, g);
+        setTickets(players, g);
         return g;
     }
 
-    private GameNode getRandomStartPoint(Game game) {
+    private void setStartPoints(Queue<Person> players, Game g) {
+        Map<Person, GameNode> playerPos = new HashMap<>();
+        for (Person player: players) {
+            playerPos.put(player, getRandomStartPoint(g, playerPos));
+        }
+        g.setPlayerPos(playerPos);
+    }
+
+    private void setTickets(Queue<Person> players, Game g) {
+        Map<Person, List<Ticket>> playerTickets = new HashMap<>();
+        for (Person player: players) {
+            playerTickets.put(player, player instanceof Detective ? detectiveTickets() : mrxTickets());
+        }
+        g.setPlayerTickets(playerTickets);
+    }
+
+    private GameNode getRandomStartPoint(Game game, Map<Person, GameNode> playersPos) {
         GameNode gNode;
+        Collection<GameNode> gameNodes = playersPos.values();
         while (true) {
             Random rnd = new Random();
 
-            gNode = game.getGameGraph().getOrCreateNode(START_POINTS[rnd.nextInt(START_POINTS.length)]);
-            if (!gNode.isWithDetective() && !gNode.isWithMrX()) {
+            gNode = gameGraphService.getOrCreateNode(game.getGameGraph(), START_POINTS[rnd.nextInt(START_POINTS.length)]);
+            if (!gameNodes.contains(gNode)) {
                 break;
             }
         }
         return gNode;
     }
 
-    private Map<Ticket, Integer> mrxTickets() {
-        Map<Ticket, Integer> tickets = new HashMap<>();
-        tickets.put(Ticket.TAXI, 4);
-        tickets.put(Ticket.BUS, 3);
-        tickets.put(Ticket.UNDERGROUND, 3);
-        tickets.put(Ticket.DOUBLE, 2);
-        tickets.put(Ticket.BLACK, 5);
+
+    private List<Ticket> mrxTickets() {
+        List<Ticket> tickets = new ArrayList<>();
+        tickets.addAll(Collections.nCopies(4, Ticket.TAXI));
+        tickets.addAll(Collections.nCopies(3, Ticket.BUS));
+        tickets.addAll(Collections.nCopies(3, Ticket.UNDERGROUND));
+        tickets.addAll(Collections.nCopies(2, Ticket.DOUBLE));
+        tickets.addAll(Collections.nCopies(5, Ticket.BLACK));
         return tickets;
     }
 
-    private Map<Ticket, Integer> detectiveTickets() {
-        Map<Ticket, Integer> tickets = new HashMap<>();
-        tickets.put(Ticket.TAXI, 10);
-        tickets.put(Ticket.BUS, 8);
-        tickets.put(Ticket.UNDERGROUND, 4);
-        tickets.put(Ticket.DOUBLE, 0);
-        tickets.put(Ticket.BLACK, 0);
+    private List<Ticket> detectiveTickets() {
+        List<Ticket> tickets = new ArrayList<>();
+        tickets.addAll(Collections.nCopies(10, Ticket.TAXI));
+        tickets.addAll(Collections.nCopies(8, Ticket.BUS));
+        tickets.addAll(Collections.nCopies(4, Ticket.UNDERGROUND));
+        tickets.addAll(Collections.nCopies(0, Ticket.DOUBLE));
+        tickets.addAll(Collections.nCopies(0, Ticket.BLACK));
         return tickets;
     }
 }

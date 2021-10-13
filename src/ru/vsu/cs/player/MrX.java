@@ -1,11 +1,9 @@
 package ru.vsu.cs.player;
 
-import ru.vsu.cs.graph.GameNode;
-
-import java.util.Map;
+import java.util.List;
 
 public class MrX extends Person {
-    public MrX(String name, GameNode startPos, Map<Ticket, Integer> startTickets) {
-        super(name, startPos, startTickets);
+    public MrX(String name) {
+        super(name);
     }
 }
