@@ -2,6 +2,7 @@ package ru.vsu.cs.game;
 
 import ru.vsu.cs.graph.GameGraph;
 import ru.vsu.cs.graph.GameNode;
+import ru.vsu.cs.player.MrX;
 import ru.vsu.cs.player.Person;
 import ru.vsu.cs.player.Ticket;
 
@@ -11,14 +12,17 @@ import java.util.*;
 public class Game {
     private GameGraph gameGraph;
     private Queue<Person> players;
+    private int playersNb;
     private Map<Person, GameNode> playerPos;
     private Map<Person, List<Ticket>> playerTickets;
-    private ArrayList<Ticket> mrXTravelLog = new ArrayList<>();
-    private Turn currTurn;
+    private int globalTurn = 0;
+    private final MrX MrXref;
 
-    public Game(GameGraph gameGraph, Queue<Person> players) {
+    public Game(GameGraph gameGraph, Queue<Person> players, MrX MrXref) {
         this.gameGraph = gameGraph;
         this.players = players;
+        this.MrXref = MrXref;
+        this.playersNb = players.size();
     }
 
     public Queue<Person> getPlayers() {
@@ -39,5 +43,29 @@ public class Game {
 
     public GameGraph getGameGraph() {
         return gameGraph;
+    }
+
+    public Map<Person, List<Ticket>> getPlayerTickets() {
+        return playerTickets;
+    }
+
+    public void incGlobalTurn() {
+        globalTurn++;
+    }
+
+    public int getGlobalTurn() {
+        return globalTurn;
+    }
+
+    public int getTurn() {
+        return globalTurn / playersNb + 1;
+    }
+
+    public int getPlayersNb() {
+        return playersNb;
+    }
+
+    public MrX getMrXref() {
+        return MrXref;
     }
 }

@@ -18,5 +18,6 @@ public class App {
 
         GameService gameService = new GameService();
         Game g = gameService.createGame(players);
+        gameService.startGame(g);
     }
 }

@@ -3,10 +3,10 @@ package ru.vsu.cs.game;
 import ru.vsu.cs.graph.GameGraph;
 import ru.vsu.cs.graph.GameGraphService;
 import ru.vsu.cs.graph.GameNode;
+import ru.vsu.cs.player.Ticket;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ScotlandYardGraphService {
@@ -23,11 +23,11 @@ public class ScotlandYardGraphService {
         }
         while (scanner.hasNextLine()) {
             String[] line = scanner.nextLine().split(" ");
-            System.out.println(Arrays.toString(line));
             GameNode gameNode1 = gameGraphService.getOrCreateNode(gameGraph, line[0]);
             GameNode gameNode2 = gameGraphService.getOrCreateNode(gameGraph, line[1]);
-            gameGraphService.addEdge(gameNode1, gameNode2, line[2]);
+            gameGraphService.addEdge(gameNode1, gameNode2, Ticket.valueOf(line[2]));
         }
         return gameGraph;
     }
+
 }
