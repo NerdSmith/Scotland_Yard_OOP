@@ -1,6 +1,6 @@
-package ru.vsu.cs.graph;
+package ru.vsu.cs.model.graph;
 
-import ru.vsu.cs.player.Ticket;
+import ru.vsu.cs.model.Ticket;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ public class GameNode implements Comparable<GameNode> {
 
     public GameNode(String stationName) {
         this.stationName = stationName;
-        this.neighbors = new TreeMap<GameNode, Set<ru.vsu.cs.player.Ticket>>();
+        this.neighbors = new TreeMap<GameNode, Set<Ticket>>();
     }
 
     public Map<GameNode, Set<Ticket>> getNeighbors() {

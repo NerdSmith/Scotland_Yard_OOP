@@ -1,6 +1,4 @@
-package ru.vsu.cs.player;
-
-import java.util.List;
+package ru.vsu.cs.model.person;
 
 public class MrX extends Person {
     public MrX(String name) {

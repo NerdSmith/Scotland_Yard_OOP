@@ -1,11 +1,10 @@
-package ru.vsu.cs.game;
+package ru.vsu.cs.service;
 
-import ru.vsu.cs.graph.GameGraphService;
-import ru.vsu.cs.graph.GameNode;
-import ru.vsu.cs.player.Detective;
-import ru.vsu.cs.player.MrX;
-import ru.vsu.cs.player.Person;
-import ru.vsu.cs.player.Ticket;
+import ru.vsu.cs.model.*;
+import ru.vsu.cs.model.graph.GameNode;
+import ru.vsu.cs.model.person.Detective;
+import ru.vsu.cs.model.person.MrX;
+import ru.vsu.cs.model.person.Person;
 
 import java.util.*;
 
@@ -169,7 +168,7 @@ public class GameService {
 
     private Boolean makeTurn(List<Ticket> tickets, Map<Person, GameNode> plPos, Person player, MrX MrXref, List<Ticket> MrXTickets, Integer currTurn) {
         if (tickets.size() == 0) {
-            printCantTravel(player, MrXref);
+            printCantTravel(player);
             return false;
         }
         Map<GameNode, Set<Ticket>> availableNeighbors = getAvailableNeighbors(plPos.get(player).getNeighbors(), getOccupiedNodes(plPos), plPos.get(MrXref));
@@ -219,7 +218,7 @@ public class GameService {
         }
 
         if (route == null) {
-            printCantTravel(player, MrXref);
+            printCantTravel(player);
             return route;
         }
 
@@ -267,14 +266,6 @@ public class GameService {
         return new ArrayList<>(plPos.values());
     }
 
-    private ArrayList<Ticket> getAvailableTickets(Map<GameNode, Set<Ticket>> availableNeighbors) {
-        ArrayList<Ticket> availableTickets = new ArrayList<>();
-        for (Set<Ticket> tickets: availableNeighbors.values()) {
-            availableTickets.addAll(tickets);
-        }
-        return availableTickets;
-    }
-
     private Map<GameNode, Set<Ticket>> getAvailableNeighbors(Map<GameNode, Set<Ticket>> neighbors, List<GameNode> occupiedNodes, GameNode MrXPos) {
         Map<GameNode, Set<Ticket>> availableNeighbors = new HashMap<>();
         for (GameNode gNode: neighbors.keySet()) {
@@ -311,7 +302,7 @@ public class GameService {
         return debug || player != MrXref || Arrays.stream(REVEAL_MRX_ON_TURNS).anyMatch(x -> x == turn);
     }
 
-    private void printCantTravel(Person player, MrX MrXref) {
+    private void printCantTravel(Person player) {
         System.out.printf("%s can't travel", player.getName());
     }
 

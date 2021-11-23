@@ -1,7 +1,6 @@
-package ru.vsu.cs.game;
+package ru.vsu.cs.model;
 
-import ru.vsu.cs.graph.GameNode;
-import ru.vsu.cs.player.Ticket;
+import ru.vsu.cs.model.graph.GameNode;
 
 public class Route {
     private final GameNode dest;

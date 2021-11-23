@@ -1,6 +1,8 @@
-package ru.vsu.cs.graph;
+package ru.vsu.cs.service;
 
-import ru.vsu.cs.player.Ticket;
+import ru.vsu.cs.model.graph.GameGraph;
+import ru.vsu.cs.model.graph.GameNode;
+import ru.vsu.cs.model.Ticket;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -31,14 +33,5 @@ public class GameGraphService {
     public void addEdge(GameNode gNode1, GameNode gNode2, Ticket type) {
         this.addNeighbor(gNode1, gNode2, type);
         this.addNeighbor(gNode2, gNode1, type);
-    }
-
-    public static void main(String[] args) {
-        GameGraph gameGraph = new GameGraph();
-        GameGraphService gameGraphService = new GameGraphService();
-        GameNode n1 = gameGraphService.getOrCreateNode(gameGraph,"1");
-        GameNode n2 = gameGraphService.getOrCreateNode(gameGraph,"2");
-        gameGraphService.addEdge(n1, n2, Ticket.BUS);
-        gameGraphService.addEdge(n1, n2, Ticket.BLACK);
     }
 }

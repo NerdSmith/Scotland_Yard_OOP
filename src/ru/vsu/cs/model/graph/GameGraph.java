@@ -1,4 +1,4 @@
-package ru.vsu.cs.graph;
+package ru.vsu.cs.model.graph;
 
 import java.util.Map;
 import java.util.TreeMap;

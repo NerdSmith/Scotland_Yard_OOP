@@ -1,7 +1,4 @@
-package ru.vsu.cs.player;
-
-import java.util.List;
-import java.util.Map;
+package ru.vsu.cs.model.person;
 
 public class Detective extends Person{
     public Detective(String name) {

@@ -1,11 +1,10 @@
-package ru.vsu.cs.game;
+package ru.vsu.cs.model;
 
-import ru.vsu.cs.graph.GameGraph;
-import ru.vsu.cs.graph.GameNode;
-import ru.vsu.cs.player.MrX;
-import ru.vsu.cs.player.Person;
-import ru.vsu.cs.player.Ticket;
 
+import ru.vsu.cs.model.graph.GameGraph;
+import ru.vsu.cs.model.graph.GameNode;
+import ru.vsu.cs.model.person.MrX;
+import ru.vsu.cs.model.person.Person;
 
 import java.util.*;
 

@@ -1,8 +1,10 @@
-package ru.vsu.cs.game;
+package ru.vsu.cs;
 
-import ru.vsu.cs.player.Detective;
-import ru.vsu.cs.player.MrX;
-import ru.vsu.cs.player.Person;
+import ru.vsu.cs.model.person.Detective;
+import ru.vsu.cs.model.Game;
+import ru.vsu.cs.model.person.MrX;
+import ru.vsu.cs.model.person.Person;
+import ru.vsu.cs.service.GameService;
 
 import java.util.LinkedList;
 

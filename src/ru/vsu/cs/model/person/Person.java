@@ -1,4 +1,4 @@
-package ru.vsu.cs.player;
+package ru.vsu.cs.model.person;
 
 import java.util.List;
 

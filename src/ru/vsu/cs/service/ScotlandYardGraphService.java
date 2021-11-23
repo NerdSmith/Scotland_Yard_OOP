@@ -1,9 +1,8 @@
-package ru.vsu.cs.game;
+package ru.vsu.cs.service;
 
-import ru.vsu.cs.graph.GameGraph;
-import ru.vsu.cs.graph.GameGraphService;
-import ru.vsu.cs.graph.GameNode;
-import ru.vsu.cs.player.Ticket;
+import ru.vsu.cs.model.graph.GameGraph;
+import ru.vsu.cs.model.graph.GameNode;
+import ru.vsu.cs.model.Ticket;
 
 import java.io.File;
 import java.io.FileNotFoundException;
